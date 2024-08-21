@@ -1,0 +1,77 @@
+#version: "3"
+
+services:
+  php:
+    image: sanechek/php:${PHP_VERSION}
+    volumes:
+      - ~/.composer-docker/cache:/var/www/.composer/cache
+      - ./:/app
+      - ./docker/php/docker-php-entrypoint:/usr/local/bin/docker-php-entrypoint
+      - ./docker/php/.bashrc:/var/www/.bashrc
+    #      - ~/.ssh:/tmp/.ssh:ro
+    environment:
+      PHP_USER_ID: ${PHP_USER_ID}
+      COMPOSER_MEMORY_LIMIT: -1
+    restart: ${RESTART}
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.22.0-alpine
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./:/app:delegated
+    restart: ${RESTART}
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.laravel-kit.rule: "Host(`${DOCKER_DOMAIN}`) || Host(`${ADMIN_DOMAIN}`)"
+    networks:
+      - default
+      - web
+    depends_on:
+      - php
+
+  db:
+    image: postgres:13.2-alpine
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./docker/db/initdb.d:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - 127.0.0.1:${DOCKER_DB_PORT}:5432
+    restart: ${RESTART}
+
+  node:
+    image: node:14.16.0-alpine
+    user: "node"
+    working_dir: /app
+    volumes:
+      - ./:/app:delegated
+    command: /bin/true
+
+  php-cron:
+    build:
+      context: docker/php-cron
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+    volumes:
+      - ./:/app
+      - ./docker/php/.bashrc:/var/www/.bashrc
+      - ./docker/php-cron/docker-php-entrypoint:/usr/local/bin/docker-php-entrypoint
+      - ./docker/php-cron/schedule:/etc/cron.d/schedule
+    environment:
+      PHP_USER_ID: ${PHP_USER_ID}
+    restart: ${RESTART}
+    command: cron -f
+    depends_on:
+      - php
+
+volumes:
+  db_data:
+
+networks:
+  web:
+    external: true

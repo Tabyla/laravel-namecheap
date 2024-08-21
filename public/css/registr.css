@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    width: 1440px;
+    margin: 0 auto;
+}
+
+.form_data {
+    width: 520px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkbox_verification {
+    font-size: 12px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+}
+
+.registration {
+    margin-top: 50px;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.reg_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 240px;
+    width: 520px;
+}
+
+.repassword-control {
+    position: absolute;
+    right: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url('../images/password.svg') 0 0 no-repeat;
+    opacity: .5;
+}
+
+.repassword-control.check {
+    background: url('../images/no-password.svg') 0 0 no-repeat;
+    opacity: .5;
+}
+
+.form_btn {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.form_btn p {
+    margin-left: 30px;
+    font-size: 12px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+}
+
+.api_input {
+    height: 30px;
+    text-align: left;
+    width: 100%;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    outline: 0;
+    background-color: transparent;
+    border-width: 0 0 1px;
+    border-bottom: 1px solid #0F303F;
+    transition: .5s ease;
+    font-size: 14px;
+}
+
+footer {
+    margin-top: auto !important;
+}
+
+.modal-dialog {
+    color: #fff;
+    background-color: #fff;
+    margin: 15% auto;
+    width: 550px;
+    height: 310px;
+    text-align: center;
+}
+
+.content-info {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 30px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #0F303F;
+    justify-content: space-between;
+}
+
+.content-info span {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+}
