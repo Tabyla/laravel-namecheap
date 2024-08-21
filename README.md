@@ -1,4 +1,4 @@
-# !Измените этот заголовок на название своего проекта
+# Dashboard Namecheap
 
 ## Quickstart
 1. [Install docker](https://docs.docker.com/install/)
@@ -76,6 +76,6 @@ make yarn-prod
 
 `administrator` role account
 ```
-Login: admin@example.com
-Password: admin
+Login: sashaperezhogin123@gmail.com
+Password: admin123
 ```
