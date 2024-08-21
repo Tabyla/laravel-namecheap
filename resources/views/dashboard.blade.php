@@ -70,7 +70,7 @@
                                             <td>{{ \Carbon\Carbon::parse($domain['created'])->format('d.m.Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($domain['expires'])->format('d.m.Y') }}</td>
                                             <td>{{ $domain['price'] }} $</td>
-                                            <td><a href="#"
+                                            <td><a href="{{ route('nameserver.index', ['domain' => $domain['name']]) }}"
                                                    class="btn btn-outline-primary" title="Просмотреть информацию">
                                                     <i class="fas fa-eye"></i>
                                                 </a></td>
