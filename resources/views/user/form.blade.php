@@ -4,7 +4,7 @@
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group">
-    <label for="email" class="control-label">Имя</label>
+    <label for="firstname" class="control-label">Имя</label>
     @if($user->profile)
         <input class="form-control" name="firstname" type="text" id="firstname"
                value="{{ old('name', $user->profile->firstname) }}">
@@ -14,7 +14,7 @@
     {!! $errors->first('firstname', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group">
-    <label for="email" class="control-label">Фамилия</label>
+    <label for="surname" class="control-label">Фамилия</label>
     @if($user->profile)
         <input class="form-control" name="surname" type="text" id="surname"
                value="{{ old('name', $user->profile->surname) }}">
@@ -29,7 +29,7 @@
     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group">
-    <label for="email" class="control-label">API Key</label>
+    <label for="api_key" class="control-label">API Key</label>
     @if($user->profile)
         <input class="form-control" name="api_key" type="text" id="api_key"
                value="{{ old('name', $user->profile->api_key) }}">

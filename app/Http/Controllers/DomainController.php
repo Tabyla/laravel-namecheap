@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DomainController extends Controller
 {
-    protected $namecheapService;
+    protected NamecheapService $namecheapService;
     public function __construct(NamecheapService $namecheapService)
     {
         $this->namecheapService = $namecheapService;
