@@ -33,5 +33,6 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/registration.php';
 require __DIR__ . '/domain.php';
+require __DIR__ . '/nameserver.php';
 
 
