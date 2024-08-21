@@ -14,7 +14,7 @@ class NamecheapService
 
     public function __construct()
     {
-        $this->apiUrl = config('services.namecheap.sandbox_api_url');
+        $this->apiUrl = config('services.namecheap.api_url');
     }
 
     public function getDomainPrice(string $userName, string $apiKey, string $domainName): float|array|null
