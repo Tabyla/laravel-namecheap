@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Nameserver;
 use Illuminate\Support\Facades\Http;
 use SimpleXMLElement;
 
 class NamecheapService
 {
-    protected $apiUrl;
+    protected string $apiUrl;
 
     public function __construct()
     {
@@ -49,6 +50,75 @@ class NamecheapService
     private function getTld(string $domainName): string
     {
         return substr($domainName, strrpos($domainName, '.') + 1);
+    }
+
+    public function createNameserver(string $userName, string $apiKey, array $data): bool
+    {
+        $response = Http::get($this->apiUrl, [
+            'ApiUser' => $userName,
+            'ApiKey' => $apiKey,
+            'UserName' => $userName,
+            'Command' => 'namecheap.domains.ns.create',
+            'ClientIp' => request()->ip(),
+            'SLD' => explode('.', $data['domain'])[0],
+            'TLD' => explode('.', $data['domain'])[1],
+            'Nameserver' => $data['nameserver'],
+            'IP' => $data['ip_address']
+        ]);
+
+        $xml = simplexml_load_string($response->body());
+        if ($xml->Errors->Error) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function updateNameserver(string $userName, string $apiKey, Nameserver $data, string $ip): bool
+    {
+        $response = Http::get($this->apiUrl, [
+            'ApiUser' => $userName,
+            'ApiKey' => $apiKey,
+            'UserName' => $userName,
+            'Command' => 'namecheap.domains.ns.update',
+            'ClientIp' => request()->ip(),
+            'SLD' => explode('.', $data['domain_name'])[0],
+            'TLD' => explode('.', $data['domain_name'])[1],
+            'Nameserver' => $data['nameserver'],
+            'OldIP' => $data['ip'],
+            'IP' => $ip
+        ]);
+
+        $xml = simplexml_load_string($response->body());
+        if ($xml->Errors->Error) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function deleteDNSRecord(string $userName, string $apiKey, string $domain, string $nameserver): bool
+    {
+        $postData = [
+            'ApiUser' => $userName,
+            'ApiKey' => $apiKey,
+            'UserName' => $userName,
+            'Command' => 'namecheap.domains.ns.delete',
+            'ClientIp' => request()->ip(),
+            'SLD' => explode('.', $domain)[0],
+            'TLD' => explode('.', $domain)[1],
+            'Nameserver' => $nameserver,
+        ];
+
+        $response = Http::asForm()->post($this->apiUrl, $postData);
+
+
+        $xml = simplexml_load_string($response->body());
+        if (isset($xml->Errors->Error)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getDomainInfo(string $userName, string $apiKey, string $domainName): SimpleXMLElement|null

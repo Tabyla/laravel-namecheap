@@ -1,0 +1,13 @@
+.action-buttons{
+    width: 300px;
+}
+
+.float-sm-right{
+    margin-bottom: 10px;
+}
+
+.table-responsive{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
