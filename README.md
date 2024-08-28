@@ -3,7 +3,7 @@
 ## Quickstart
 1. [Install docker](https://docs.docker.com/install/)
 2. [Install docker-compose](https://docs.docker.com/compose/install/)
-3. [Install traefik](https://github.com/mediaten/traefik)
+3. [Install traefik](https://github.com/mediaten/traefik-v2)
 
 ## Install
 Copy .env file (update if required)
