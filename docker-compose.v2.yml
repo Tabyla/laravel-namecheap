@@ -46,11 +46,11 @@ services:
 
   node:
     image: node:14.16.0-alpine
-    user: "node"
+    user: root
     working_dir: /app
     volumes:
       - ./:/app:delegated
-    command: /bin/true
+    command: yarn dev
 
   php-cron:
     build:
